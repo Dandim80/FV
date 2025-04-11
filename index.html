@@ -5,15 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DDM Soluzioni - Impianti Fotovoltaici</title>
   <script>
-    // Seleziona solo una configurazione e aggiorna il link WhatsApp con il nome del prodotto
+    /* La funzione aggiornaSelezione ora permette di togliere la spunta se il kit è già selezionato */
     function aggiornaSelezione(id, nomeProdotto) {
-      document.querySelectorAll('input[type=checkbox]').forEach(c => c.checked = false);
-      document.getElementById(id).checked = true;
-      document.getElementById("linkWhatsapp").href =
-        "https://wa.me/393346395727?text=" + encodeURIComponent("Ciao, vorrei maggiori informazioni su: " + nomeProdotto);
+      let checkbox = document.getElementById(id);
+      // Se la checkbox è già selezionata, allora la deseleziona e ripristina il link WhatsApp vuoto
+      if (checkbox.checked) {
+        checkbox.checked = false;
+        document.getElementById("linkWhatsapp").href = "#";
+      } else {
+        // Deseleziona tutte le checkbox e seleziona quella corrente
+        document.querySelectorAll('input[type=checkbox]').forEach(c => c.checked = false);
+        checkbox.checked = true;
+        document.getElementById("linkWhatsapp").href =
+          "https://wa.me/393346395727?text=" + encodeURIComponent("Ciao, vorrei maggiori informazioni su: " + nomeProdotto);
+      }
     }
 
-    // Mostra/nasconde il box di dettagli tecnici
+    // Funzione per mostrare/nascondere i dettagli
     function toggleDettagli(id) {
       let dettagli = document.getElementById(id);
       dettagli.style.display = (dettagli.style.display === "none" || dettagli.style.display === "") ? "block" : "none";
@@ -104,7 +112,11 @@
       border: none;
       border-radius: 5px;
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      display: inline-block;
+      text-align: center;
+      word-wrap: break-word;
+      white-space: normal;
     }
   </style>
 </head>
@@ -118,8 +130,7 @@
     <!-- OFFERTA 1: 6,02kW Afore con inverter -->
     <div class="card">
       <h3>
-        <input type="checkbox" id="p1" onclick="aggiornaSelezione('p1','6,02kW Afore con inverter')">
-        6,02kW Afore con inverter
+        <input type="checkbox" id="p1" onclick="aggiornaSelezione('p1','6,02kW Afore con inverter')"> 6,02kW Afore con inverter
       </h3>
       <p><strong>€9.200 + IVA</strong></p>
       <p>Produzione annua: ~7.200 kWh<br>CO₂ risparmiata: ~3.500 kg</p>
@@ -127,13 +138,13 @@
       <button class="btn-dettagli" onclick="toggleDettagli('dettagli-p1')">+ Dettagli</button>
       <div class="dettagli" id="dettagli-p1">
         <ul>
-          <li><strong>Moduli Fotovoltaici:</strong> 14 moduli 3D Energy BETA full-black da 430Wp</li>
-          <li>Tecnologia TOPCON N-Type; efficienza dal 22,05% al 24,00%</li>
-          <li>Garante 35 anni con vetro autopulente e alta resistenza agli urti</li>
-          <li><strong>Inverter Afore:</strong> Inverter ibrido monofase da 6kW con 2 MPPT e supporto UPS (switching <10ms)</li>
-          <li>Monitoraggio intelligente via WiFi e protezioni anti-islanding, sovratensione e cortocircuito</li>
-          <li>Kit quadro elettrico AC/DC (2 stringhe), gestione pratiche Enel/GSE, comunicazione ENEA per la detrazione</li>
-          <li>Inclusi imballo, preparazione materiali e RAEE per lo smaltimento dei moduli</li>
+          <li><strong>Moduli:</strong> 14 moduli 3D Energy BETA full-black da 430Wp</li>
+          <li>Tecnologia TOPCON N-Type, efficienza dal 22,05% al 24,00%</li>
+          <li>Garante 35 anni: vetro autopulente e resistenza agli urti</li>
+          <li><strong>Inverter Afore:</strong> 6kW ibrido monofase con 2 MPPT e supporto UPS (switching < 10ms)</li>
+          <li>Monitoraggio intelligente via WiFi; protezioni anti-islanding, sovratensione e cortocircuito</li>
+          <li>Kit quadro elettrico AC/DC (2 stringhe), gestione pratiche Enel/GSE e comunicazione ENEA</li>
+          <li>Inclusi imballo, preparazione materiali e RAEE per lo smaltimento moduli</li>
         </ul>
       </div>
     </div>
@@ -141,8 +152,7 @@
     <!-- OFFERTA 2: 6,02kW Afore con accumulo 10,24kWh -->
     <div class="card">
       <h3>
-        <input type="checkbox" id="p2" onclick="aggiornaSelezione('p2','6,02kW Afore con accumulo 10,24kWh')">
-        6,02kW Afore con accumulo 10,24kWh
+        <input type="checkbox" id="p2" onclick="aggiornaSelezione('p2','6,02kW Afore con accumulo 10,24kWh')"> 6,02kW Afore con accumulo 10,24kWh
       </h3>
       <p><strong>€11.900 + IVA</strong></p>
       <p>Produzione annua: ~7.200 kWh<br>CO₂ risparmiata: ~3.500 kg</p>
@@ -150,11 +160,12 @@
       <button class="btn-dettagli" onclick="toggleDettagli('dettagli-p2')">+ Dettagli</button>
       <div class="dettagli" id="dettagli-p2">
         <ul>
-          <li><strong>Moduli Fotovoltaici:</strong> 14 moduli 3D Energy BETA full-black da 430Wp, con tecnologia TOPCON N-Type e garanzia di 35 anni</li>
-          <li><strong>Inverter Afore:</strong> 6kW ibrido monofase, con 2 MPPT, oversizing FV fino a 1,5x e monitoraggio WiFi</li>
-          <li><strong>Batteria:</strong> Kit accumulo Lithium Valley composto da 2 unità LV-BAT-W5.12Ac (51.2V, 100Ah, 5.12kWh ciascuna) in parallelo per un totale di 10,24kWh</li>
-          <li>Tecnologia LiFePO4 con ciclo di vita di 6000 cicli @80% DOD, protezione IP65 e comunicazione RS232/RS485/CAN</li>
-          <li>Inclusi quadro elettrico, gestione pratiche Enel/GSE e comunicazione ENEA per detrazione fiscale</li>
+          <li><strong>Moduli:</strong> 14 moduli 3D Energy BETA full-black da 430Wp con tecnologia TOPCON N-Type</li>
+          <li>Garanzia 35 anni, vetro autopulente e alta resistenza agli urti</li>
+          <li><strong>Inverter Afore:</strong> 6kW ibrido monofase, 2 MPPT, oversize FV fino a 1,5x, monitoraggio WiFi</li>
+          <li><strong>Batteria:</strong> Kit accumulo composto da 2 unità LV-BAT-W5.12Ac (51.2V, 100Ah, 5.12kWh ciascuna) per un totale di 10,24kWh</li>
+          <li>Tecnologia LiFePO4: 6000 cicli @80% DOD, protezione IP65 e interfacce RS232/RS485/CAN</li>
+          <li>Inclusi quadro elettrico, gestione pratiche Enel/GSE e comunicazione ENEA per la detrazione</li>
         </ul>
       </div>
     </div>
@@ -162,8 +173,7 @@
     <!-- OFFERTA 3: 9,03kW Afore con inverter -->
     <div class="card">
       <h3>
-        <input type="checkbox" id="p3" onclick="aggiornaSelezione('p3','9,03kW Afore con inverter')">
-        9,03kW Afore con inverter
+        <input type="checkbox" id="p3" onclick="aggiornaSelezione('p3','9,03kW Afore con inverter')"> 9,03kW Afore con inverter
       </h3>
       <p><strong>€11.400 + IVA</strong></p>
       <p>Produzione annua: ~10.800 kWh<br>CO₂ risparmiata: ~5.200 kg</p>
@@ -171,9 +181,9 @@
       <button class="btn-dettagli" onclick="toggleDettagli('dettagli-p3')">+ Dettagli</button>
       <div class="dettagli" id="dettagli-p3">
         <ul>
-          <li><strong>Moduli Fotovoltaici:</strong> 21 moduli 3D Energy BETA full-black da 430Wp</li>
-          <li>Stessa tecnologia TOPCON N-Type, elevata efficienza e garanzia 35 anni</li>
-          <li><strong>Inverter Afore:</strong> 6kW ibrido monofase con 2 MPPT, monitoraggio WiFi e sistema di protezione avanzato</li>
+          <li><strong>Moduli:</strong> 21 moduli 3D Energy BETA full-black da 430Wp</li>
+          <li>Tecnologia TOPCON N-Type con elevata efficienza e garanzia 35 anni</li>
+          <li><strong>Inverter Afore:</strong> 6kW ibrido monofase con 2 MPPT e monitoraggio WiFi</li>
           <li>Quadro elettrico AC/DC (2 stringhe), gestione pratiche Enel/GSE e comunicazione ENEA</li>
         </ul>
       </div>
@@ -182,8 +192,7 @@
     <!-- OFFERTA 4: 9,03kW Afore con accumulo 15,36kWh -->
     <div class="card">
       <h3>
-        <input type="checkbox" id="p4" onclick="aggiornaSelezione('p4','9,03kW Afore con accumulo 15,36kWh')">
-        9,03kW Afore con accumulo 15,36kWh
+        <input type="checkbox" id="p4" onclick="aggiornaSelezione('p4','9,03kW Afore con accumulo 15,36kWh')"> 9,03kW Afore con accumulo 15,36kWh
       </h3>
       <p><strong>€15.100 + IVA</strong></p>
       <p>Produzione annua: ~10.800 kWh<br>CO₂ risparmiata: ~5.200 kg</p>
@@ -191,11 +200,11 @@
       <button class="btn-dettagli" onclick="toggleDettagli('dettagli-p4')">+ Dettagli</button>
       <div class="dettagli" id="dettagli-p4">
         <ul>
-          <li><strong>Moduli Fotovoltaici:</strong> 21 moduli 3D Energy BETA full-black da 430Wp</li>
-          <li>Tecnologia TOPCON N-Type, garanzia 35 anni e prestazioni elevate in tutte le condizioni climatiche</li>
-          <li><strong>Inverter Afore:</strong> 6kW ibrido monofase, con funzioni di monitoraggio e protezioni complete</li>
-          <li><strong>Batteria:</strong> Sistema accumulo Lithium Valley composto da 3 unità LV-BAT-W5.12Ac (ciascuna 5.12kWh) in parallelo per un totale di 15,36kWh</li>
-          <li>Tecnologia LiFePO4 con ciclo di vita di 6000 cicli @80% DOD, protezione IP65 e comunicazione digitale (RS232, RS485, CAN)</li>
+          <li><strong>Moduli:</strong> 21 moduli 3D Energy BETA full-black da 430Wp</li>
+          <li>Tecnologia TOPCON N-Type, garanzia 35 anni e prestazioni elevate</li>
+          <li><strong>Inverter Afore:</strong> 6kW ibrido monofase con funzioni avanzate di monitoraggio</li>
+          <li><strong>Batteria:</strong> Sistema accumulo composto da 3 unità LV-BAT-W5.12Ac (5.12kWh ciascuna) in parallelo per un totale di 15,36kWh</li>
+          <li>Tecnologia LiFePO4 con 6000 cicli @80% DOD, protezione IP65 e comunicazione digitale (RS232, RS485, CAN)</li>
         </ul>
       </div>
     </div>
@@ -203,8 +212,7 @@
     <!-- OFFERTA 5: 6,02kW Huawei con inverter -->
     <div class="card">
       <h3>
-        <input type="checkbox" id="p5" onclick="aggiornaSelezione('p5','6,02kW Huawei con inverter')">
-        6,02kW Huawei con inverter
+        <input type="checkbox" id="p5" onclick="aggiornaSelezione('p5','6,02kW Huawei con inverter')"> 6,02kW Huawei con inverter
       </h3>
       <p><strong>€9.300 + IVA</strong></p>
       <p>Produzione annua: ~7.200 kWh<br>CO₂ risparmiata: ~3.500 kg</p>
@@ -212,10 +220,9 @@
       <button class="btn-dettagli" onclick="toggleDettagli('dettagli-p5')">+ Dettagli</button>
       <div class="dettagli" id="dettagli-p5">
         <ul>
-          <li><strong>Moduli Fotovoltaici:</strong> 14 moduli 3D Energy BETA full-black da 430Wp</li>
-          <li>Tecnologia TOPCON N-Type con garanzia 35 anni e design resistenti al degrado</li>
-          <li><strong>Inverter Huawei:</strong> Inverter ibrido monofase da 6kW con monitoraggio WiFi</li>
-          <li>Quadro elettrico AC/DC, gestione pratiche Enel/GSE e sistema RAEE per lo smaltimento</li>
+          <li><strong>Moduli:</strong> 14 moduli 3D Energy BETA full-black da 430Wp, con tecnologia TOPCON N-Type e garanzia 35 anni</li>
+          <li><strong>Inverter Huawei:</strong> 6kW ibrido monofase con monitoraggio WiFi e protezioni standard</li>
+          <li>Quadro elettrico AC/DC, gestione pratiche Enel/GSE e RAEE per lo smaltimento</li>
         </ul>
       </div>
     </div>
@@ -223,8 +230,7 @@
     <!-- OFFERTA 6: 6,02kW Huawei con accumulo 10kWh -->
     <div class="card">
       <h3>
-        <input type="checkbox" id="p6" onclick="aggiornaSelezione('p6','6,02kW Huawei con accumulo 10kWh')">
-        6,02kW Huawei con accumulo 10kWh
+        <input type="checkbox" id="p6" onclick="aggiornaSelezione('p6','6,02kW Huawei con accumulo 10kWh')"> 6,02kW Huawei con accumulo 10kWh
       </h3>
       <p><strong>€14.742 + IVA</strong></p>
       <p>Produzione annua: ~7.200 kWh<br>CO₂ risparmiata: ~3.500 kg</p>
@@ -232,11 +238,10 @@
       <button class="btn-dettagli" onclick="toggleDettagli('dettagli-p6')">+ Dettagli</button>
       <div class="dettagli" id="dettagli-p6">
         <ul>
-          <li><strong>Moduli Fotovoltaici:</strong> 14 moduli 3D Energy BETA full-black da 430Wp</li>
-          <li>Stessa tecnologia avanzata TOPCON N-Type e garanzia di 35 anni</li>
-          <li><strong>Inverter Huawei:</strong> 6kW ibrido monofase con monitoraggio WiFi e protezioni complete</li>
-          <li><strong>Batteria:</strong> Kit accumulo formato da 2 unità della batteria Lithium Valley LV-BAT-W5.12Ac (51.2V, 100Ah, 5.12kWh ciascuna) per un totale di circa 10kWh</li>
-          <li>Tecnologia LiFePO4 con ciclo di vita esteso, protezione IP65 e interfacce RS232/RS485/CAN</li>
+          <li><strong>Moduli:</strong> 14 moduli 3D Energy BETA full-black da 430Wp con tecnologia TOPCON N-Type</li>
+          <li><strong>Inverter Huawei:</strong> 6kW ibrido monofase con protezioni complete e monitoraggio WiFi</li>
+          <li><strong>Batteria:</strong> Kit accumulo formato da 2 unità LV-BAT-W5.12Ac (5.12kWh ciascuna) per circa 10kWh totali</li>
+          <li>Tecnologia LiFePO4, 6000 cicli @80% DOD, protezione IP65, RS232/RS485/CAN</li>
         </ul>
       </div>
     </div>
@@ -244,18 +249,16 @@
     <!-- OFFERTA 7: 9,03kW Huawei con inverter -->
     <div class="card">
       <h3>
-        <input type="checkbox" id="p7" onclick="aggiornaSelezione('p7','9,03kW Huawei con inverter')">
-        9,03kW Huawei con inverter
+        <input type="checkbox" id="p7" onclick="aggiornaSelezione('p7','9,03kW Huawei con inverter')"> 9,03kW Huawei con inverter
       </h3>
       <p><strong>€11.500 + IVA</strong></p>
-      <p>Produzione annua: ~10.800 kWh<br>CO₂ risparmiata: ~5,200 kg</p>
+      <p>Produzione annua: ~10.800 kWh<br>CO₂ risparmiata: ~5.200 kg</p>
       <p>✅ Detrazione fiscale 50%</p>
       <button class="btn-dettagli" onclick="toggleDettagli('dettagli-p7')">+ Dettagli</button>
       <div class="dettagli" id="dettagli-p7">
         <ul>
-          <li><strong>Moduli Fotovoltaici:</strong> 21 moduli 3D Energy BETA full-black da 430Wp</li>
-          <li>Tecnologia TOPCON N-Type, elevata efficienza con garanzia 35 anni</li>
-          <li><strong>Inverter Huawei:</strong> 6kW ibrido monofase con monitoraggio via WiFi, protezioni avanzate e gestione delle pratiche Enel/GSE</li>
+          <li><strong>Moduli:</strong> 21 moduli 3D Energy BETA full-black da 430Wp con tecnologia TOPCON N-Type, garanzia 35 anni</li>
+          <li><strong>Inverter Huawei:</strong> 6kW ibrido monofase, con monitoraggio WiFi, protezioni avanzate e gestione pratiche Enel/GSE</li>
         </ul>
       </div>
     </div>
@@ -263,28 +266,26 @@
     <!-- OFFERTA 8: 9,03kW Huawei con accumulo 15kWh -->
     <div class="card">
       <h3>
-        <input type="checkbox" id="p8" onclick="aggiornaSelezione('p8','9,03kW Huawei con accumulo 15kWh')">
-        9,03kW Huawei con accumulo 15kWh
+        <input type="checkbox" id="p8" onclick="aggiornaSelezione('p8','9,03kW Huawei con accumulo 15kWh')"> 9,03kW Huawei con accumulo 15kWh
       </h3>
       <p><strong>€18.900 + IVA</strong></p>
-      <p>Produzione annua: ~10.800 kWh<br>CO₂ risparmiata: ~5,200 kg</p>
+      <p>Produzione annua: ~10.800 kWh<br>CO₂ risparmiata: ~5.200 kg</p>
       <p>✅ Detrazione fiscale 50%</p>
       <button class="btn-dettagli" onclick="toggleDettagli('dettagli-p8')">+ Dettagli</button>
       <div class="dettagli" id="dettagli-p8">
         <ul>
-          <li><strong>Moduli Fotovoltaici:</strong> 21 moduli 3D Energy BETA full-black da 430Wp</li>
-          <li>Tecnologia TOPCON N-Type con garanzia 35 anni e prestazioni ottimali</li>
-          <li><strong>Inverter Huawei:</strong> 6kW ibrido monofase con monitoraggio WiFi e protezioni standard</li>
-          <li><strong>Batteria:</strong> Kit accumulo formato da 3 unità della batteria Lithium Valley LV-BAT-W5.12Ac (ciascuna 5.12kWh) per un totale di circa 15kWh</li>
+          <li><strong>Moduli:</strong> 21 moduli 3D Energy BETA full-black da 430Wp con tecnologia TOPCON N-Type, garanzia 35 anni</li>
+          <li><strong>Inverter Huawei:</strong> 6kW ibrido monofase, con monitoraggio WiFi e protezioni standard</li>
+          <li><strong>Batteria:</strong> Kit accumulo composto da 3 unità LV-BAT-W5.12Ac (5.12kWh ciascuna) per un totale di circa 15kWh</li>
           <li>Tecnologia LiFePO4, 6000 cicli @80% DOD, protezione IP65 e comunicazione integrata (RS232, RS485, CAN)</li>
         </ul>
       </div>
     </div>
 
-    <!-- Contatto WhatsApp -->
+    <!-- Pulsante Contatto WhatsApp -->
     <div class="contact">
       <a id="linkWhatsapp" class="whatsapp-button" href="#" target="_blank">
-        Scrivici su WhatsApp per maggiori info
+        Scrivici su WhatsApp
       </a>
     </div>
   </div>
